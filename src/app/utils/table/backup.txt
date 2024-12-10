@@ -1,0 +1,57 @@
+<div class="overflow-x-auto mx-auto pt-5">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        @for (item of dataToShow; track $index) {
+          <th>{{capitalizeFirstLetter(item)}}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      @for (rowitem of tableItems; track $index;let i=$index;) {
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              @if (isAvatar) {
+                <div class="avatar">
+                  <div class="mask mask-squircle h-12 w-12">
+                    <img
+                      src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                      alt="Avatar Tailwind CSS Component" />
+                  </div>
+                </div>
+              }
+
+              <div class="text-gray-600 dark:text-gray-200">
+                <div class="font-bold">{{rowitem[dataToShow[getItemIndex(1)]]}}</div>
+              </div>
+            </div>
+          </td>
+          <td class="text-gray-600 dark:text-gray-200">
+           {{rowitem[dataToShow[getItemIndex(2)]]}}
+            <br />
+          </td>
+          <td  class="text-gray-600 dark:text-gray-200">{{rowitem[dataToShow[getItemIndex(3)]]}}</td>
+          <td class="text-gray-600 dark:text-gray-200">{{rowitem[dataToShow[getItemIndex(3)]]}}</td>
+          <th>
+            <button class="btn btn-ghost btn-xs">details</button>
+          </th>
+        </tr>
+      }
+
+    </tbody>
+    <!-- foot -->
+  </table>
+</div>

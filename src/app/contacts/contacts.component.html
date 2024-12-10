@@ -1,0 +1,58 @@
+<div class="">
+  <div class="grid grid-cols-6 gap-4">
+    <div class="col-span-3">
+      <h3 class="text-xl dark:text-gray-300 text-gray-700">Contacts</h3>
+    </div>
+    <div class="col-span-3 flex justify-end items-center gap-2">
+      <div class="join !bg-gray-500">
+        <button class="btn join-item" (click)="openDialog()">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button
+          [disabled]="checkedContacts.length === 0"
+          class="btn join-item disabled:bg-slate-500"
+        >
+          <i class="fa-solid fa-tag"></i>
+        </button>
+        <button
+          [disabled]="checkedContacts.length === 0"
+          (click)="openAddToPipelineDialog()"
+          class="btn join-item disabled:bg-slate-500"
+        >
+          <i class="fa-solid fa-filter-circle-dollar"></i>
+        </button>
+        <button
+          [disabled]="checkedContacts.length === 0"
+          class="btn join-item disabled:bg-slate-500 text-red-500"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+      <app-search-contacts></app-search-contacts>
+    </div>
+  </div>
+  @if (isActionLoading) {
+    <div class="w-full">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+  }
+
+  @if (contacts.length > 0) {
+    <app-table
+      class="mt-3"
+      [dataFromParent]="contacts"
+      [isAvatar]="true"
+      [dataToShow]="['name', 'email', 'phone', 'tags']"
+      [actions]="actions"
+      (checkboxChange)="onCheckboxChange($event)"
+    >
+    </app-table>
+  } @else if (contacts.length === 0) {
+    <h1>There are no contacts</h1>
+  }
+  @if (isLoading) {
+    <div class="flex justify-center items-center">
+      <span class="loading loading-spinner loading-md text-primary-600"></span>
+    </div>
+  }
+</div>

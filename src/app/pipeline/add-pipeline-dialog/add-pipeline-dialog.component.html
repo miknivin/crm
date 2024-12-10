@@ -1,0 +1,83 @@
+<mat-dialog-content class="bg-base-100 border-spacing-2 border-base-300">
+  <form (ngSubmit)="onSubmit()" class="w-full min-w-[30vw]">
+    <div class="flex justify-end text-gray-600 dark:text-gray-100">
+      <button type="button" (click)="closeDialog()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="mb-5">
+      <label
+        for="name"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Pipeline Name</label
+      >
+      <input
+        name="pipeline-name"
+        [(ngModel)]="pipelineData.name"
+        type="name"
+        id="name"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+        placeholder="Enter a name for your pipeline"
+        required
+      />
+    </div>
+    <div class="mb-5">
+      <label
+        for="notes"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Notes</label
+      >
+      <textarea
+        name="notes"
+        [(ngModel)]="pipelineData.notes"
+        id="notes"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+      ></textarea>
+    </div>
+    @for (item of pipelineData.stages; track $index; let index = $index) {
+      <div class="flex flex-nowrap items-center gap-4 mb-5">
+        <div class="w-full">
+          <label
+            [htmlFor]="'stage' + index"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Stage</label
+          >
+          <input
+            type="text"
+            [name]="'stage' + index"
+            [(ngModel)]="pipelineData.stages[index].name"
+            [id]="'stage' + index"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+            required
+          />
+        </div>
+        @if (index != 0) {
+          <button
+            type="button"
+            role="button"
+            (click)="removeStage(index)"
+            class="text-error flex justify-center items-center"
+          >
+            <i class="fa-solid fa-trash align-middle pt-4"></i>
+          </button>
+        }
+      </div>
+    }
+    <div class="mb-5 flex justify-end">
+      <button
+        (click)="addStage()"
+        type="button"
+        role="button"
+        class="btn btn-neutral"
+      >
+        <i class="fa-solid fa-plus"></i> Add Stage
+      </button>
+    </div>
+    <button
+      type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Add Pipeline
+    </button>
+  </form>
+</mat-dialog-content>

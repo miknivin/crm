@@ -1,0 +1,57 @@
+<div class="grid grid-cols-6 gap-4">
+  <div class="col-span-3">
+    <h3 class="text-xl dark:text-gray-300 text-gray-700">
+      {{ pipeline?.name }}
+    </h3>
+  </div>
+  <div class="col-span-3 flex justify-end items-center gap-2">
+    <div class="join !bg-gray-500">
+      <button class="btn join-item"><i class="fa-solid fa-plus"></i></button>
+      <button class="btn join-item"><i class="fa-solid fa-tag"></i></button>
+      <button class="btn join-item text-red-500">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+    <app-search-contacts></app-search-contacts>
+  </div>
+</div>
+@if (pipeline) {
+  <div class="drag-drop-container flex flex-nowrap overflow-x-auto gap-2">
+    @if (pipeline.stages) {
+      @for (stage of pipeline.stages; track stage?._id) {
+        @if (stage.contacts) {
+          <div
+            cdkDropList
+            class="example-list !flex flex-col gap-4"
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListData]="stage.contacts"
+            [cdkDropListConnectedTo]="connectedDropLists"
+          >
+            <div class="card bg-base-100 w-full shadow-xl p-0">
+              <div class="card-body bg-slate-500 p-0">
+                <p class="text-gray-700 dark:text-gray-200 p-2 text-xl">
+                  {{ stage.name }}
+                </p>
+              </div>
+            </div>
+            @for (item of stage.contacts; track item._id; let index = $index) {
+              <div class="example-box bg-transparent" cdkDrag>
+                <div class="example-box">
+                  <app-contact-card [Contact]="item"></app-contact-card>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+    }
+  </div>
+} @else if (isPipelineLoading) {
+  <div class="flex justify-center items-center">
+    <span class="loading loading-spinner loading-md text-primary-600"></span>
+  </div>
+} @else {
+  <div class="flex justify-center items-center">
+    <h1 class="text-gray-500">Error Loading pipeline</h1>
+  </div>
+}

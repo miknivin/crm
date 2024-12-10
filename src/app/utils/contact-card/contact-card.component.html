@@ -1,0 +1,22 @@
+<div
+  class="card m-1 w-72 shadow-xl bg-base-300 text-gray-700 dark:text-gray-200"
+>
+  <div class="card-body">
+    <h2 class="card-title !text-xl font-semibold">{{ Contact.name }}</h2>
+    <p class="text-opacity-85 !m-0">{{ Contact.email }}</p>
+    <p class="text-opacity-85">{{ Contact.phone }}</p>
+    <div class="card-actions justify-start">
+      <div class="join join-vertical lg:join-horizontal">
+        <button class="btn hover:bg-slate-700 join-item">
+          <i class="fa-regular fa-eye"></i>
+        </button>
+        <button (click)="openWhatsApp(Contact.phone)" class="btn hover:bg-slate-700 join-item">
+          <i class="fa-brands fa-whatsapp"></i>
+        </button>
+        <button class="btn hover:bg-slate-700 join-item">
+          <i class="fa-regular fa-envelope"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
